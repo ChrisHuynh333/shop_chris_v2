@@ -24,17 +24,17 @@
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 {% for category in categories %}
-                <li><a class="dropdown-item" href="#">{{ category.category }}</a></li>
+                <li><a class="dropdown-item" href="{% url 'shop:category' category=category.category %}">{{ category.category }}</a></li>
                 {% endfor %}
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">View All Items</a></li>
+                <li><a class="dropdown-item" href="{% url 'shop:all_products' %}">View All Items</a></li>
               </ul>
             </li>
           </ul>
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
               {% if not logged_in %}
-              <a class="nav-link" href="#">Log In</a>
+              <a class="nav-link" href="{% url 'shop:login' %}">Log In</a>
               {% else %}
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown">
@@ -42,8 +42,8 @@
                     Account
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#">Your Account</a></li>
-                    <li><a class="dropdown-item" href="#">Logout</a></li>
+                    <li><a class="dropdown-item" href="{% url 'shop:account' %}">Your Account</a></li>
+                    <li><a class="dropdown-item" href="{% url 'shop:logout' %}">Logout</a></li>
                   </ul>
                 </li>
               </ul>
@@ -56,9 +56,9 @@
               -->
             <li class="nav-item">
               {% if cart_size != 0 %}
-              <a class="nav-link" href="#">Cart({{ cart_size }})</a>
+              <a class="nav-link" href="{% url 'shop:cart' %}">Cart({{ cart_size }})</a>
               {% else %}
-              <a class="nav-link" href="#">Cart</a>
+              <a class="nav-link" href="{% url 'shop:cart' %}">Cart</a>
               {% endif %}
             </li>
           </ul>
