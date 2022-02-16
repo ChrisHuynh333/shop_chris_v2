@@ -10,6 +10,61 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'shop:index' %}">Shop Chris</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Shop
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                {% for category in categories %}
+                <li><a class="dropdown-item" href="#">{{ category.category }}</a></li>
+                {% endfor %}
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">View All Items</a></li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              {% if not logged_in %}
+              <a class="nav-link" href="#">Log In</a>
+              {% else %}
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Account
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#">Your Account</a></li>
+                    <li><a class="dropdown-item" href="#">Logout</a></li>
+                  </ul>
+                </li>
+              </ul>
+              {% endif %}
+            </li>
+              <!--
+              The cart size is passed on each page to have the number of items within the cart displayed at all times.
+              If no items exist in the cart, then only "Cart" will appear in the Navbar, as opposed to "Cart(2)", for
+              example.
+              -->
+            <li class="nav-item">
+              {% if cart_size != 0 %}
+              <a class="nav-link" href="#">Cart({{ cart_size }})</a>
+              {% else %}
+              <a class="nav-link" href="#">Cart</a>
+              {% endif %}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
     {% block content %}
 
     {% endblock %}
