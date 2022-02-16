@@ -1,4 +1,42 @@
 {% extends "shop/base.html" %}
 {% block content %}
 
+<div class="container-fluid items-container">
+    <p>< <a class="link-unstyled black-hyperlink" href="{% url 'shop:index' %}">Home</a>
+        / <a class="link-unstyled black-hyperlink" href="{% url 'shop:all_products' %}">All Items</a>
+        / {{ category }}
+    </p>
+    <h2> {{ category }}</h2>
+</div>
+
+<form method="post" action="#">
+    <div class="container-fluid items-container">
+    {% for product in products %}
+        <div class="row product-item-border">
+            <div class="col-lg-4">
+                <a href="{% url 'shop:product' product=product.name %}">
+                    <img class="category-image-thumbnail" src="/media/images/{{product.name}}.jpg">
+                </a>
+            </div>
+            <div class="col-lg-6 cold-md-7">
+                <a class="link-unstyled black-hyperlink"
+                   href="{% url 'shop:product' product=product.name %}}">
+                    <h5 class="cart-item-heading">{{ product.name }}</h5>
+                </a>
+                <p class="cart-item-description">{{ product.description }}</p>
+            </div>
+            <div class="col-lg-2 col-md-5">
+                <h5 class="cart-pricing">${{ product.price }}</h5>
+
+                <button type="submit" class="btn btn-outline-primary generic-button add-button-product-page"
+                        name="add_button" value={{product.name}}>
+                    Add
+                </button>
+            </div>
+            <div class="row cart-white-space"></div>
+        </div>
+    {% endfor %}
+    </div>
+</form>
+
 {% endblock %}

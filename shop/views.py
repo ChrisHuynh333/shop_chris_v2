@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from shop.models import *
 from django.http import HttpResponse
 
 # Create your views here.
@@ -11,8 +12,15 @@ def product(request, product):
     })
 
 def category(request, category):
+    products = Product.objects.all().order_by('name')
+    product_list_for_cat = []
+    for product in products:
+        if str(product.category) == category:
+            product_list_for_cat.append(product)
+    print(product_list_for_cat)
     return render(request, "shop/products_by_category.html", {
-        "category": category
+        "category": category,
+        "products": product_list_for_cat
     })
 
 def all_products(request):
